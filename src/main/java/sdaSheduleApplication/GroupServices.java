@@ -1,9 +1,6 @@
 package sdaSheduleApplication;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GroupServices {
@@ -26,17 +23,15 @@ public class GroupServices {
         return studentsToSort;
     }
 
-    public Optional<String> searchMaxNumberOfStudents () {
-
-        Optional<String> groupWithMaxStudents = Optional.of(groups.stream()
+    public Optional<String> searchMaxNumberOfStudents() {
+        return Optional.of(groups.stream()
                 .max(Comparator.comparingInt(groups -> groups.getStudents().size()))
-                .map(group -> group.getGroupName())
+                .map(Group::getGroupName)
                 .orElse("Tuscias sarasas"));
 
-       return groupWithMaxStudents;
     }
 
-    public List<Student> groupWithStudentsYoungerThanX (int ageToCompare) {
+    public List<Student> searchStudentsYoungerThanX(int ageToCompare) {
         return groups.stream()
                 .flatMap(group -> group.getStudents().stream())
                 .filter(student -> student.getAge() < ageToCompare)
@@ -44,13 +39,51 @@ public class GroupServices {
 
     }
 
-//    public List<Person> provideTrainersAndStudents () {
-//
-//        return
-//
-//    }
+    public Map<Trainer, List<Student>> provideTrainersAndStudents() {
+        return  groups.stream()
+                .flatMap(group -> group.getStudents().stream())
+                .filter(student -> Objects.nonNull(student))
+                .collect(Collectors.groupingBy(student -> student.getTrainer()));
+
+    }
+
+    public List<Student> searchStudentsHavingJavaKnowledge() {
+        return groups.stream()
+                .flatMap(group -> group.getStudents().stream())
+                .filter(student -> student.isHasPreviousJavaKnowledge())
+                .collect(Collectors.toList());
+    }
+
+    public List<Trainer> searchTrainersWithNoExperience() {
+        return groups.stream()
+                .filter(group -> !group.getTrainer().isExperienced())
+                .map(group -> group.getTrainer())
+                .collect(Collectors.toList());
+    }
+
+    public String searchGroupWithHighestNumberOfStudentsWithoutJavaKnowledge() {
+        Map<String, Long> groupsJavaKnowledge = groups.stream()
+                .collect(Collectors.toMap(
+                        group -> group.getGroupName(),
+                        (group -> group.getStudents().stream()
+                                .filter(student -> !student.isHasPreviousJavaKnowledge())
+                                .count()
+
+                        )));
+
+        return groupsJavaKnowledge.entrySet().stream()
+                .max(Comparator.comparingInt(value -> value.getValue().intValue()))
+                .map(Map.Entry::getKey)
+                .map(Object::toString)
+                .orElse("");
 
 
+    }
+
+    public void removeStudentsYoungerThanX(int ageToCompare) {
+        groups.forEach(group -> group.getStudents()
+                .removeIf(student -> student.getAge() < ageToCompare));
+    }
 
 
 

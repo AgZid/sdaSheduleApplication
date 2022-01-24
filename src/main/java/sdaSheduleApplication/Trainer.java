@@ -9,4 +9,9 @@ public class Trainer extends Person{
         super(firstName, lastName, age);
         this.isExperienced = isExperienced;
     }
+
+    public boolean isExperienced() {
+        return isExperienced;
+    }
+
 }

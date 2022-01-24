@@ -1,6 +1,7 @@
 package sdaSheduleApplication;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * SDA scheduler application
@@ -38,8 +39,44 @@ public class GroupsMain {
         System.out.println(groupServices.searchMaxNumberOfStudents());
 
         System.out.println();
-        System.out.println("All students younger than 25");
-        groupServices.groupWithStudentsYoungerThanX(25).forEach(student ->
+        System.out.println("All students younger than 25:");
+        groupServices.searchStudentsYoungerThanX(25).forEach(student ->
                 System.out.println(student.getAge() + " m. " + student.getFirstName() + " " + student.getLastName() ));
+
+        System.out.println();
+        System.out.println("All students grouped by trainer that teaches to them:");
+        Map<Trainer, List<Student>> trainers = groupServices.provideTrainersAndStudents();
+        trainers.forEach((trainer, students) -> {
+            System.out.println("Trainer " + trainer.getFirstName() + " " + trainer.getLastName() + " students:");
+            students.forEach(student -> System.out.println("-" + student.getFirstName() + " " + student.getLastName()));
+        });
+
+        System.out.println();
+        System.out.println("All students with previous java knowledge:");
+        groupServices.searchStudentsHavingJavaKnowledge()
+                .forEach(student -> System.out.println(student.getFirstName() + " " + student.getLastName()));
+
+        System.out.println();
+        System.out.println("All trainers who are NOT experienced:");
+        groupServices.searchTrainersWithNoExperience()
+                .forEach(trainer -> System.out.println(trainer.getFirstName() + " " + trainer.getLastName()));
+
+        System.out.println();
+        System.out.println("All trainers who are NOT experienced:");
+        System.out.println(groupServices.searchGroupWithHighestNumberOfStudentsWithoutJavaKnowledge());
+
+        System.out.println();
+        System.out.println("Remove all the students younger than 20 from all groups:");
+        System.out.println("Before remove:");
+        groups.forEach(group -> group.getStudents()
+                .forEach(student ->
+                        System.out.println(student.getAge() + " " + student.getFirstName() + " " + student.getLastName())));
+
+        groupServices.removeStudentsYoungerThanX(20);
+        System.out.println("After remove:");
+        groups.forEach(group -> group.getStudents()
+                .forEach(student ->
+                        System.out.println(student.getAge() + " " + student.getFirstName() + " " + student.getLastName())));
+
     }
 }
