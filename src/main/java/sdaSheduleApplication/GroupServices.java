@@ -27,7 +27,7 @@ public class GroupServices {
         return Optional.of(groups.stream()
                 .max(Comparator.comparingInt(groups -> groups.getStudents().size()))
                 .map(Group::getGroupName)
-                .orElse("Tuscias sarasas"));
+                .orElseGet(() -> ""));
 
     }
 
@@ -76,7 +76,6 @@ public class GroupServices {
                 .map(Map.Entry::getKey)
                 .map(Object::toString)
                 .orElse("");
-
 
     }
 

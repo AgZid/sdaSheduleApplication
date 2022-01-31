@@ -62,7 +62,7 @@ public class GroupsMain {
                 .forEach(trainer -> System.out.println(trainer.getFirstName() + " " + trainer.getLastName()));
 
         System.out.println();
-        System.out.println("All trainers who are NOT experienced:");
+        System.out.println("Group with the highest number of students with no previous java knowledge:");
         System.out.println(groupServices.searchGroupWithHighestNumberOfStudentsWithoutJavaKnowledge());
 
         System.out.println();
@@ -70,13 +70,13 @@ public class GroupsMain {
         System.out.println("Before remove:");
         groups.forEach(group -> group.getStudents()
                 .forEach(student ->
-                        System.out.println(student.getAge() + " " + student.getFirstName() + " " + student.getLastName())));
+                        System.out.println(student.getAge() + " m. " + student.getFirstName() + " " + student.getLastName())));
 
         groupServices.removeStudentsYoungerThanX(20);
         System.out.println("After remove:");
         groups.forEach(group -> group.getStudents()
                 .forEach(student ->
-                        System.out.println(student.getAge() + " " + student.getFirstName() + " " + student.getLastName())));
+                        System.out.println(student.getAge() + " m.  " + student.getFirstName() + " " + student.getLastName())));
 
     }
 }

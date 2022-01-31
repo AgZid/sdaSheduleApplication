@@ -9,8 +9,7 @@ public class DataPopulateService {
 
     public static List<Group> dataInitialisation() {
         List<Group> groups = new ArrayList<>();
-
-        Trainer trainerG1 = new Trainer("Jonas", "Jonaitis", 30, true);
+        Trainer trainerG1 = new Trainer("Juozas", "Juozaitis", 30, true);
         Trainer trainerG2 = new Trainer("Benas", "Benaitis", 31, false);
         Trainer trainerG3 = new Trainer("Jonas", "Jonaitis", 30, true);
         Trainer trainerG4 = new Trainer("Aloyzas", "Petras", 60, true);
@@ -18,7 +17,6 @@ public class DataPopulateService {
         Student studentAntanas  = new Student("Antanas", "Antanaitis", 20, true, trainerG2);
         Student studentAlgis  = new Student("Algis", "Algaitis", 25, true, trainerG1);
         Student studentOna  = new Student("Ona", "Onaite", 30, false, trainerG2);
-              ;
 
         Set<Student> studentsG1 = new HashSet<>();
         studentsG1.add(studentAlgis);
@@ -57,7 +55,7 @@ public class DataPopulateService {
         Student studentDovydas = new Student("Dovydas", "Justinas", 21, true, trainerG1);
         Student studentJustinas = new Student("Justinas", "Dumbrauskas", 20, false, trainerG2);
         Student studentSkirmantas = new Student("Skirmantas", "Simonas", 18, false, trainerG2);
-        Student studentMartynas = new Student("Martynas", "Lukminas", 19, true, trainerG3);
+        Student studentMartynas = new Student("Martynas", "Lukminas", 19, false, trainerG3);
         Student studentJakterina = new Student("Jakaterina", "Fedorcuk", 19, true, trainerG4);
         Student studentJadvyga = new Student("Jadvyga", "Fedorcuk", 20, true, trainerG4);
 
